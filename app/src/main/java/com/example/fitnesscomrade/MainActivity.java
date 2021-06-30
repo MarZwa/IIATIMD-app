@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +24,8 @@ import com.example.fitnesscomrade.database.AppDatabase;
 import com.example.fitnesscomrade.database.Workout;
 
 import java.util.List;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(MainActivity.this, AddNewWorkoutActivity.class), 100);
             }
         });
+
+        BottomNavigationView navView = findViewById(R.id.bottomNav_view);
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_myWorkouts, R.id.navigation_workouts, R.id.navigation_addWorkout)
+                .build();
+
+        NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
 
         initRecyclerView();
         loadWorkoutList();

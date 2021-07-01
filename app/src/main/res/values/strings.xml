@@ -5,4 +5,7 @@
     <string name="title_myWorkouts">My workouts</string>
     <string name="title_addWorkout">Add workout</string>
     <string name="title_workouts">Workouts</string>
+    <string name="title_loginEmail">Email</string>
+    <string name="title_loginPassword">Password</string>
+    <string name="title_loginButton">Login</string>
 </resources>

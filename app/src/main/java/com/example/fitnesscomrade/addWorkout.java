@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.fitnesscomrade.database.AppDatabase;
+import com.example.fitnesscomrade.database.Exercise;
+import com.example.fitnesscomrade.database.SaveWorkoutTask;
 import com.example.fitnesscomrade.database.Workout;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,21 +72,77 @@ public class addWorkout extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_workout, container, false);
 
         final EditText nameInput = v.findViewById(R.id.nameInput);
+
+        final EditText exerciseNameInput = v.findViewById(R.id.exerciseNameInput);
+        final EditText repsInput = v.findViewById(R.id.repetitions);
+        final EditText exerciseNameInput2 = v.findViewById(R.id.exerciseNameInput2);
+        final EditText repsInput2 = v.findViewById(R.id.repetitions2);
+        final EditText exerciseNameInput3 = v.findViewById(R.id.exerciseNameInput3);
+        final EditText repsInput3 = v.findViewById(R.id.repetitions3);
+
+        ArrayList<EditText> inputs = new ArrayList<EditText>();
+        inputs.add(nameInput);
+        inputs.add(exerciseNameInput);
+        inputs.add(repsInput);
+        inputs.add(exerciseNameInput2);
+        inputs.add(repsInput2);
+        inputs.add(exerciseNameInput3);
+        inputs.add(repsInput3);
+
         Button saveButton = v.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveNewUser(nameInput.getText().toString());
+                saveNewWorkout(nameInput.getText().toString(),
+                               exerciseNameInput.getText().toString(),
+                               repsInput.getText().toString(),
+                               exerciseNameInput2.getText().toString(),
+                               repsInput2.getText().toString(),
+                               exerciseNameInput3.getText().toString(),
+                               repsInput3.getText().toString());
+
+                for(EditText input : inputs) {
+                    input.setText(null);
+                }
             }
         });
         return v;
     }
 
-    private void saveNewUser(String name) {
+    private void saveNewWorkout(String name, String exName, String reps, String exName2, String reps2, String exName3, String reps3) {
         AppDatabase db = AppDatabase.getDbInstance(getActivity());
 
-        Workout workout = new Workout();
-        workout.name = name;
-        db.workoutDao().insertWorkout(workout);
+        new Thread(new SaveWorkoutTask(db, name, exName, reps, exName2, reps2, exName3, reps3)).start();
+
+//        long workoutId = db.workoutDao().getLastWorkoutId();
+//
+//        Workout workout = new Workout();
+//        workout.name = name;
+//
+//        Exercise exercise = new Exercise();
+//        exercise.workoutId = workoutId + 1;
+//        exercise.name = exName;
+//        exercise.reps = reps;
+//
+//        Exercise exercise2 = new Exercise();
+//        exercise2.workoutId = workoutId + 1;
+//        exercise2.name = exName2;
+//        exercise2.reps = reps2;
+//
+//        Exercise exercise3 = new Exercise();
+//        exercise3.workoutId = workoutId + 1;
+//        exercise3.name = exName3;
+//        exercise3.reps = reps3;
+//
+//        Log.d("workoutId", String.valueOf(workoutId));
+//
+//        Log.d("exercise", exercise.name);
+//        Log.d("exercise2", exercise2.name);
+//        Log.d("exercise3", exercise3.name);
+//
+//        db.workoutDao().insertWorkout(workout);
+//        db.exerciseDao().insertExercise(exercise);
+//        db.exerciseDao().insertExercise(exercise2);
+//        db.exerciseDao().insertExercise(exercise3);
     }
 }

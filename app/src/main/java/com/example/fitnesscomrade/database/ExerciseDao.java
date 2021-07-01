@@ -9,22 +9,17 @@ import androidx.room.Transaction;
 import java.util.List;
 
 @Dao
-public interface WorkoutDao {
+public interface ExerciseDao {
 
-    @Transaction
-    @Query("SELECT * FROM Workout")
-    public List<WorkoutWithExercises> getWorkoutsWithExercises();
+    @Query("SELECT * FROM Exercise")
+    public List<Exercise> getExercises();
 
 //    @Query("SELECT * FROM Workout")
 //    List<Workout> getAllWorkouts();
 
-    @Query("SELECT id FROM Workout ORDER BY id DESC LIMIT 1")
-    public int getLastWorkoutId();
-
     @Insert
-    void insertWorkout(Workout... workouts);
+    void insertExercise(Exercise... exercises);
 
     @Delete
-    void delete(Workout workout);
-
+    void delete(Exercise exercise);
 }

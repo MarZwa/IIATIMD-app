@@ -4,10 +4,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Workout {
-
+public class Exercise {
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
+    public long workoutId;
     public String name;
+    public String reps;
 }

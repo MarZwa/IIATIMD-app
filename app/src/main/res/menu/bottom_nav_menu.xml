@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_myWorkouts"
+        android:icon="@drawable/my_workouts"
+        android:title="@string/title_myWorkouts" />
+    <item
+        android:id="@+id/navigation_workouts"
+        android:icon="@drawable/workouts"
+        android:title="@string/title_workouts" />
+    <item
+        android:id="@+id/navigation_addWorkout"
+        android:icon="@drawable/add_workout"
+        android:title="@string/title_addWorkout" />
+
+</menu>

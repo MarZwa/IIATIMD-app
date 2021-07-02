@@ -3,10 +3,24 @@ package com.example.fitnesscomrade;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.fitnesscomrade.database.AppDatabase;
+import com.example.fitnesscomrade.database.GetMyWorkoutsTask;
+import com.example.fitnesscomrade.database.Workout;
+import com.example.fitnesscomrade.myWorkoutsRecycler.MyWorkoutsAdapter;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +37,9 @@ public class myWorkouts extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    private AppDatabase db;
 
     public myWorkouts() {
         // Required empty public constructor
@@ -56,9 +73,27 @@ public class myWorkouts extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_workouts, container, false);
+        View view = inflater.inflate(R.layout.recycler_my_workouts, container, false);
+        AppDatabase db = AppDatabase.getDbInstance(getActivity());
+
+        // Add the following lines to create RecyclerView
+        recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Future<List<Workout>> futureCall = executor.submit(new GetMyWorkoutsTask(db));
+        try {
+            List<Workout> result = futureCall.get();
+            recyclerView.setAdapter(new MyWorkoutsAdapter(result));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return view;
     }
 }

@@ -15,8 +15,11 @@ public interface WorkoutDao {
     @Query("SELECT * FROM Workout")
     public List<WorkoutWithExercises> getWorkoutsWithExercises();
 
-//    @Query("SELECT * FROM Workout")
-//    List<Workout> getAllWorkouts();
+    @Query("SELECT * FROM Workout")
+    List<Workout> getAllWorkoutNames();
+
+    @Query("SELECT name FROM Workout ORDER BY id ASC LIMIT 1")
+    public String getFirstWorkoutName();
 
     @Query("SELECT id FROM Workout ORDER BY id DESC LIMIT 1")
     public int getLastWorkoutId();

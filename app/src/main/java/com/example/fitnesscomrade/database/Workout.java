@@ -10,4 +10,8 @@ public class Workout {
     public long id;
 
     public String name;
+
+    public String getName() {
+        return this.name;
+    }
 }

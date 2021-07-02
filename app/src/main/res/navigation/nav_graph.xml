@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_workouts" />
 
     <fragment
+        android:id="@+id/navigation_workouts_list"
+        android:name="com.example.fitnesscomrade.workouts_list"
+        android:label="Workout_list"
+        tools:layout="@layout/fragment_workouts_list" />
+
+    <fragment
         android:id="@+id/navigation_addWorkout"
         android:name="com.example.fitnesscomrade.addWorkout"
         android:label="@string/title_addWorkout"

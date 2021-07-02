@@ -3,7 +3,13 @@ package com.example.fitnesscomrade;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +65,11 @@ public class workouts extends Fragment {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    Log.d("DikkeTieten", response);
+                                    PreferenceManager.getDefaultSharedPreferences(container.getContext()).edit().putString("JWT", response).apply();
+                                    PreferenceManager.getDefaultSharedPreferences(container.getContext()).edit().putString("LOGGED_IN", "true").apply();
+
+                                    NavController navcontroller = Navigation.findNavController(v);
+                                    navcontroller.navigate(R.id.navigation_workouts_list);
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -80,6 +90,7 @@ public class workouts extends Fragment {
                 }
             }
         });
+
 
         return v;
     }

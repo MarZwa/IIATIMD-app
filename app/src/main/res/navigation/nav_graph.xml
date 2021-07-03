@@ -24,9 +24,16 @@
         tools:layout="@layout/fragment_workouts_list" />
 
     <fragment
+        android:id="@+id/navigation_workouts_detail"
+        android:name="com.example.fitnesscomrade.workouts_detail"
+        android:label="Workout_detail"
+        tools:layout="@layout/fragment_workouts_detail" />
+
+    <fragment
         android:id="@+id/navigation_addWorkout"
         android:name="com.example.fitnesscomrade.addWorkout"
         android:label="@string/title_addWorkout"
         tools:layout="@layout/fragment_add_workout" />
+
 
 </navigation>

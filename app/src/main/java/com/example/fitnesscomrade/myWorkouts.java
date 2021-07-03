@@ -87,7 +87,7 @@ public class myWorkouts extends Fragment {
         Future<List<Workout>> futureCall = executor.submit(new GetMyWorkoutsTask(db));
         try {
             List<Workout> result = futureCall.get();
-            recyclerView.setAdapter(new MyWorkoutsAdapter(result));
+            recyclerView.setAdapter(new MyWorkoutsAdapter(result, db));
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

@@ -11,4 +11,12 @@ public class Exercise {
     public long workoutId;
     public String name;
     public String reps;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getReps() {
+        return reps;
+    }
 }

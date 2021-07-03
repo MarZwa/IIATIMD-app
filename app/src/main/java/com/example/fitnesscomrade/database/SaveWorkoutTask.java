@@ -1,7 +1,5 @@
 package com.example.fitnesscomrade.database;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class SaveWorkoutTask implements Runnable {

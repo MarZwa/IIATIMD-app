@@ -24,6 +24,8 @@ import com.example.fitnesscomrade.database.Set;
 import com.example.fitnesscomrade.database.Workout;
 import com.example.fitnesscomrade.myWorkoutsRecycler.MyWorkoutsAdapter;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -114,6 +116,7 @@ public class workout extends Fragment {
 
 
         TextView textview = view.findViewById(R.id.textview);
+        TextView repsview = view.findViewById(R.id.repsview);
         Button buttonNext = view.findViewById(R.id.buttonNext);
 
         ExecutorService executor = Executors.newCachedThreadPool();
@@ -130,6 +133,7 @@ public class workout extends Fragment {
         }
 
         textview.setText(exercises.get(exerciseNr).getName());
+        repsview.setText("Repetitions: " + exercises.get(exerciseNr).getReps());
 
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override

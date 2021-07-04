@@ -7,12 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fitnesscomrade.R;
 import com.example.fitnesscomrade.database.AppDatabase;
+import com.example.fitnesscomrade.database.CurrentExercises;
 import com.example.fitnesscomrade.database.Exercise;
 import com.example.fitnesscomrade.database.GetExercisesOnWorkoutIdTask;
+import com.example.fitnesscomrade.database.SaveCurrentExercisesTask;
 import com.example.fitnesscomrade.database.Workout;
 
 import java.util.List;
@@ -55,11 +59,17 @@ public class MyWorkoutsAdapter extends RecyclerView.Adapter<RecyclerViewHolder> 
                 Future<List<Exercise>> futureCall = executor.submit(new GetExercisesOnWorkoutIdTask(db, position));
                 try {
                     List<Exercise> result = futureCall.get();
-                    Log.d("Exercises length", String.valueOf(result.size()));
+
                     for(Exercise exercise : result) {
-                        Log.d("Exercise name", exercise.getName());
-                        Log.d("Exercise reps", exercise.getReps());
+                        CurrentExercises currentExercise = new CurrentExercises();
+                        currentExercise.name = exercise.getName();
+                        currentExercise.reps = exercise.getReps();
+
+                        new Thread(new SaveCurrentExercisesTask(currentExercise, db)).start();
                     }
+
+                    NavController navcontroller = Navigation.findNavController(v);
+                    navcontroller.navigate(R.id.navigation_workout);
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

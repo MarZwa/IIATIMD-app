@@ -56,8 +56,10 @@ public class MyWorkoutsAdapter extends RecyclerView.Adapter<RecyclerViewHolder> 
                 try {
                     List<Exercise> result = futureCall.get();
                     Log.d("Exercises length", String.valueOf(result.size()));
-                    Log.d("Exercise name", result.get(0).getName());
-                    Log.d("Exercise reps", result.get(0).getReps());
+                    for(Exercise exercise : result) {
+                        Log.d("Exercise name", exercise.getName());
+                        Log.d("Exercise reps", exercise.getReps());
+                    }
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

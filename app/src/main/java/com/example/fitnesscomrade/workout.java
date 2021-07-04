@@ -7,10 +7,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.fitnesscomrade.database.AppDatabase;
+import com.example.fitnesscomrade.database.CurrentExercises;
 import com.example.fitnesscomrade.database.Exercise;
+import com.example.fitnesscomrade.database.GetCurrentExercisesTask;
+import com.example.fitnesscomrade.database.Workout;
+import com.example.fitnesscomrade.myWorkoutsRecycler.MyWorkoutsAdapter;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,9 +76,23 @@ public class workout extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workout, container, false);
+        View view = inflater.inflate(R.layout.fragment_workout, container, false);
+        AppDatabase db = AppDatabase.getDbInstance(getActivity());
+
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Future<List<CurrentExercises>> futureCall = executor.submit(new GetCurrentExercisesTask(db));
+        try {
+            List<CurrentExercises> result = futureCall.get();
+            TextView textview = view.findViewById(R.id.textview);
+            textview.setText(result.get(0).getName());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return view;
     }
 }

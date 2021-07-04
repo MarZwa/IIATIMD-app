@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fitnesscomrade.R;
 import com.example.fitnesscomrade.database.AppDatabase;
 import com.example.fitnesscomrade.database.CurrentExercises;
+import com.example.fitnesscomrade.database.DeleteAllCurrentExercisesTask;
 import com.example.fitnesscomrade.database.Exercise;
 import com.example.fitnesscomrade.database.GetExercisesOnWorkoutIdTask;
 import com.example.fitnesscomrade.database.SaveCurrentExercisesTask;
@@ -55,7 +56,7 @@ public class MyWorkoutsAdapter extends RecyclerView.Adapter<RecyclerViewHolder> 
         holder.getCardView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Position: ", String.valueOf(position+1));
+                new Thread(new DeleteAllCurrentExercisesTask(db)).start();
                 Future<List<Exercise>> futureCall = executor.submit(new GetExercisesOnWorkoutIdTask(db, position));
                 try {
                     List<Exercise> result = futureCall.get();

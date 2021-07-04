@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fitnesscomrade.database.AppDatabase;
+import com.example.fitnesscomrade.database.DeleteAllCurrentExercisesTask;
 import com.example.fitnesscomrade.database.GetMyWorkoutsTask;
 import com.example.fitnesscomrade.database.Workout;
 import com.example.fitnesscomrade.myWorkoutsRecycler.MyWorkoutsAdapter;

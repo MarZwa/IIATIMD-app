@@ -17,6 +17,9 @@ public interface CurrentExercisesDao {
     void insertCurrentExercise(CurrentExercises... currentExercises);
 
     @Delete
-    void delete(CurrentExercises currentExercises);
+    void delete(CurrentExercises... currentExercises);
+
+    @Query("DELETE FROM CurrentExercises")
+    void deleteAll();
 
 }

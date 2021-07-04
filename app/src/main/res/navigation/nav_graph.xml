@@ -29,4 +29,10 @@
         android:label="@string/title_workout"
         tools:layout="@layout/fragment_workout" />
 
+    <fragment
+        android:id="@+id/navigation_timer"
+        android:name="com.example.fitnesscomrade.Timer"
+        android:label="@string/title_workout"
+        tools:layout="@layout/fragment_timer" />
+
 </navigation>

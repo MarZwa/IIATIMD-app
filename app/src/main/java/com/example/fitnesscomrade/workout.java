@@ -3,16 +3,24 @@ package com.example.fitnesscomrade;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.fitnesscomrade.database.AppDatabase;
 import com.example.fitnesscomrade.database.CurrentExercises;
 import com.example.fitnesscomrade.database.Exercise;
 import com.example.fitnesscomrade.database.GetCurrentExercisesTask;
+import com.example.fitnesscomrade.database.GetSetTask;
+import com.example.fitnesscomrade.database.SaveSetTask;
+import com.example.fitnesscomrade.database.Set;
 import com.example.fitnesscomrade.database.Workout;
 import com.example.fitnesscomrade.myWorkoutsRecycler.MyWorkoutsAdapter;
 
@@ -21,6 +29,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,14 +48,18 @@ public class workout extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private List<Exercise> exercises;
-
-    public workout(List<Exercise> exercises) {
-        this.exercises = exercises;
-    }
+    private List<CurrentExercises> exercises;
+    private int set;
+    private int exerciseNr;
+    private int exerciseLength;
 
     public workout() {
 
+    }
+
+    public workout(int set, int exerciseNr) {
+        this.set = set;
+        this.exerciseNr = exerciseNr;
     }
 
     /**
@@ -85,8 +99,8 @@ public class workout extends Fragment {
         Future<List<CurrentExercises>> futureCall = executor.submit(new GetCurrentExercisesTask(db));
         try {
             List<CurrentExercises> result = futureCall.get();
-            TextView textview = view.findViewById(R.id.textview);
-            textview.setText(result.get(0).getName());
+            exercises = result;
+            followWorkout(view, db);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -94,5 +108,44 @@ public class workout extends Fragment {
         }
 
         return view;
+    }
+
+    public void followWorkout(View view, AppDatabase db) {
+
+
+        TextView textview = view.findViewById(R.id.textview);
+        Button buttonNext = view.findViewById(R.id.buttonNext);
+
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Future<Set> futureCall = executor.submit(new GetSetTask(db));
+        try {
+            Set result = futureCall.get();
+            set = result.getSet();
+            exerciseNr = result.getExerciseNr();
+            exerciseLength = result.exercisesLength;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        textview.setText(exercises.get(exerciseNr).getName());
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(exerciseLength-1 == exerciseNr && set == 3) {
+                    NavController navcontroller = Navigation.findNavController(view);
+                    navcontroller.navigate(R.id.navigation_myWorkouts);
+                }
+                else {
+                    new Thread(new SaveSetTask(set, exerciseNr, exerciseLength, db)).start();
+
+                    NavController navcontroller = Navigation.findNavController(view);
+                    navcontroller.navigate(R.id.navigation_timer);
+                }
+            }
+        });
     }
 }

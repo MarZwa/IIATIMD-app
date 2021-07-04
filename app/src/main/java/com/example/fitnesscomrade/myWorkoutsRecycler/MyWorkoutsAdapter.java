@@ -18,6 +18,7 @@ import com.example.fitnesscomrade.database.DeleteAllCurrentExercisesTask;
 import com.example.fitnesscomrade.database.Exercise;
 import com.example.fitnesscomrade.database.GetExercisesOnWorkoutIdTask;
 import com.example.fitnesscomrade.database.SaveCurrentExercisesTask;
+import com.example.fitnesscomrade.database.SaveSetTask;
 import com.example.fitnesscomrade.database.Workout;
 
 import java.util.List;
@@ -60,6 +61,8 @@ public class MyWorkoutsAdapter extends RecyclerView.Adapter<RecyclerViewHolder> 
                 Future<List<Exercise>> futureCall = executor.submit(new GetExercisesOnWorkoutIdTask(db, position));
                 try {
                     List<Exercise> result = futureCall.get();
+                    int exercisesLength = result.size();
+                    Log.d("lengte", String.valueOf(exercisesLength));
 
                     for(Exercise exercise : result) {
                         CurrentExercises currentExercise = new CurrentExercises();
@@ -68,6 +71,8 @@ public class MyWorkoutsAdapter extends RecyclerView.Adapter<RecyclerViewHolder> 
 
                         new Thread(new SaveCurrentExercisesTask(currentExercise, db)).start();
                     }
+
+                    new Thread(new SaveSetTask(1, 0, exercisesLength, db)).start();
 
                     NavController navcontroller = Navigation.findNavController(v);
                     navcontroller.navigate(R.id.navigation_workout);

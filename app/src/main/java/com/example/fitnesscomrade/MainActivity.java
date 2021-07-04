@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity  {
         BottomNavigationView navView = findViewById(R.id.bottomNav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_myWorkouts, R.id.navigation_workouts, R.id.navigation_addWorkout, R.id.navigation_workouts_list, R.id.navigation_workouts_detail)
+                R.id.navigation_myWorkouts, R.id.navigation_workouts, R.id.navigation_addWorkout, R.id.navigation_workouts_list, R.id.navigation_workouts_detail,
+                R.id.navigation_workouts_register)
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.navHostFragment);

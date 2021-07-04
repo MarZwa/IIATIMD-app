@@ -7,5 +7,7 @@
     <string name="title_workouts">Workouts</string>
     <string name="title_loginEmail">Email</string>
     <string name="title_loginPassword">Password</string>
+    <string name="title_registerName">Name</string>
     <string name="title_loginButton">Login</string>
+    <string name="title_registerButton">Register</string>
 </resources>

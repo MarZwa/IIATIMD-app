@@ -48,7 +48,7 @@ public class Timer extends Fragment {
     private Button countdownButton;
 
     private CountDownTimer countDownTimer;
-    private long timeLeftInMilliseconds = 10000;
+    private long timeLeftInMilliseconds = 60000;
     private boolean timerRunning;
 
     private Set currentSet;

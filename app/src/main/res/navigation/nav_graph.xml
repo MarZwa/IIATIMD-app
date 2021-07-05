@@ -18,11 +18,30 @@
         tools:layout="@layout/fragment_workouts" />
 
     <fragment
+        android:id="@+id/navigation_workouts_register"
+        android:name="com.example.fitnesscomrade.workouts_register"
+        android:label="Workouts"
+        tools:layout="@layout/fragment_workouts_register" />
+
+    <fragment
+        android:id="@+id/navigation_workouts_list"
+        android:name="com.example.fitnesscomrade.workouts_list"
+        android:label="Workouts"
+        tools:layout="@layout/fragment_workouts_list" />
+
+    <fragment
+        android:id="@+id/navigation_workouts_detail"
+        android:name="com.example.fitnesscomrade.workouts_detail"
+        android:label="Workouts"
+        tools:layout="@layout/fragment_workouts_detail" />
+
+    <fragment
         android:id="@+id/navigation_addWorkout"
         android:name="com.example.fitnesscomrade.addWorkout"
         android:label="@string/title_addWorkout"
         tools:layout="@layout/fragment_add_workout" />
 
+<<<<<<< HEAD
     <fragment
         android:id="@+id/navigation_workout"
         android:name="com.example.fitnesscomrade.workout"
@@ -36,3 +55,7 @@
         tools:layout="@layout/fragment_timer" />
 
 </navigation>
+=======
+
+</navigation>
+>>>>>>> development_jim

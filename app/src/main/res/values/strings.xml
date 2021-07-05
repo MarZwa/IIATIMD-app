@@ -8,4 +8,9 @@
     <string name="input_exercise_name">Exercise name</string>
     <string name="input_reps">Repetitions</string>
     <string name="title_workout">Workout</string>
+    <string name="title_loginEmail">Email</string>
+    <string name="title_loginPassword">Password</string>
+    <string name="title_registerName">Name</string>
+    <string name="title_loginButton">Login</string>
+    <string name="title_registerButton">Register</string>
 </resources>

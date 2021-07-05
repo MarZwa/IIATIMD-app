@@ -5,4 +5,7 @@
     <string name="title_myWorkouts">My workouts</string>
     <string name="title_addWorkout">Add workout</string>
     <string name="title_workouts">Workouts</string>
+    <string name="input_exercise_name">Exercise name</string>
+    <string name="input_reps">Repetitions</string>
+    <string name="title_workout">Workout</string>
 </resources>

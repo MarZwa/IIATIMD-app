@@ -21,6 +21,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fitnesscomrade.database.AppDatabase;
+import com.example.fitnesscomrade.database.Exercise;
+import com.example.fitnesscomrade.database.GetLastWorkoutIdTask;
+import com.example.fitnesscomrade.database.SaveWorkoutTask;
+import com.example.fitnesscomrade.database.Workout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +34,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class workouts_detail extends Fragment {
 
@@ -38,6 +47,7 @@ public class workouts_detail extends Fragment {
     private JSONArray array;
     private TextView title;
     private Button button;
+    private long workoutId;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,7 +99,37 @@ public class workouts_detail extends Fragment {
 
             @Override
             public void onClick(View v) {
+                AppDatabase db = AppDatabase.getDbInstance(getActivity());
+                ArrayList<Exercise> exercises = new ArrayList<>();
 
+                ExecutorService executor = Executors.newCachedThreadPool();
+                Future<Long> futureCall = executor.submit(new GetLastWorkoutIdTask(db));
+                try {
+                    long result = futureCall.get();
+                    workoutId = result;
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Workout workout = new Workout();
+                workout.name = PreferenceManager.getDefaultSharedPreferences(container.getContext()).getString("Title", "Workout");
+
+                for(int i=0;i<array.length();i++){
+                    try {
+                        Exercise exercise = new Exercise();
+                        exercise.workoutId = workoutId + 1;
+                        exercise.name = array.getJSONObject(i).getString("name");
+                        exercise.reps = array.getJSONObject(i).getString("reps");
+
+                        exercises.add(exercise);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                new Thread(new SaveWorkoutTask(db, exercises, workout)).start();
             }
         });
 

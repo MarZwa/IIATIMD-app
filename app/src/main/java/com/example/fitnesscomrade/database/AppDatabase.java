@@ -19,7 +19,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public static synchronized AppDatabase getDbInstance(Context context) {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "workout_database")
-                       .allowMainThreadQueries()
                        .fallbackToDestructiveMigration()
                        .build();
         }

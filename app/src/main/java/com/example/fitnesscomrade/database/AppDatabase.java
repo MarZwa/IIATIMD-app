@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Workout.class, Exercise.class, CurrentExercises.class, Set.class}, version = 7)
+@Database(entities = {Workout.class, Exercise.class, CurrentExercises.class, Set.class}, version = 8)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract WorkoutDao workoutDao();

@@ -68,15 +68,23 @@ public class workouts extends Fragment {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    PreferenceManager.getDefaultSharedPreferences(container.getContext()).edit().putString("JWT", response).apply();
 
-                                    NavController navcontroller = Navigation.findNavController(v);
-                                    navcontroller.navigate(R.id.navigation_workouts_list);
+                                    if(!response.isEmpty() ){
+                                        PreferenceManager.getDefaultSharedPreferences(container.getContext()).edit().putString("JWT", response).apply();
+
+                                        NavController navcontroller = Navigation.findNavController(v);
+                                        navcontroller.navigate(R.id.navigation_workouts_list);
+                                    }
+                                    else{
+                                        title.setText("No account found");
+                                        title.setTextColor(Color.RED);
+                                        title.setX(230);
+                                    }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("nietGewerkt", error.getMessage());
+                            Log.d("nietGewerkt", "error");
                         }
                     }){
                         @Override
@@ -105,7 +113,7 @@ public class workouts extends Fragment {
         return v;
     }
 
-    /*@Override
+    @Override
     public void onStart() {
         super.onStart();
         if(!(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("JWT", "defaultStringIfNothingFound") == "defaultStringIfNothingFound")){
@@ -113,6 +121,6 @@ public class workouts extends Fragment {
             NavController navcontroller = Navigation.findNavController(getView());
             navcontroller.navigate(R.id.navigation_workouts_list);
         }
-    }*/
+    }
 
 }

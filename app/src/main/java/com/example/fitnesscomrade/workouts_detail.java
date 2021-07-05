@@ -59,7 +59,7 @@ public class workouts_detail extends Fragment {
 
         String id = PreferenceManager.getDefaultSharedPreferences(container.getContext()).getString("ID", "defaultStringIfNothingFound");
         RequestQueue queue = Volley.newRequestQueue(container.getContext());
-        final String URL = "http://10.0.2.2:8000/api/workout/"+ id +"/exercises";
+        final String URL = "https://mysterious-waters-19165.herokuapp.com/api/workout/"+ id +"/exercises";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>(){

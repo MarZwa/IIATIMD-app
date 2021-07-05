@@ -46,7 +46,7 @@ public class workouts_register extends Fragment {
         title = v.findViewById(R.id.registerTitle);
 
         RequestQueue queue = Volley.newRequestQueue(container.getContext());
-        final String URL = "http://10.0.2.2:8000/api/register";
+        final String URL = "https://mysterious-waters-19165.herokuapp.com/api/register";
 
         button.setOnClickListener(new View.OnClickListener() {
 

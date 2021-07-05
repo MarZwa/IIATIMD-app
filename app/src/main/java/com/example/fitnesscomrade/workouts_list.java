@@ -46,7 +46,7 @@ public class workouts_list extends Fragment implements workouts_listAdapter.OnLi
         View v = inflater.inflate(R.layout.fragment_workouts_list, container, false);
 
         RequestQueue queue = Volley.newRequestQueue(container.getContext());
-        final String URL = "http://10.0.2.2:8000/api/workouts";
+        final String URL = "https://mysterious-waters-19165.herokuapp.com/api/workouts";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>() {

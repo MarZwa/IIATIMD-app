@@ -13,10 +13,10 @@
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022"
+        app:layout_constraintVertical_bias="0.02"
         tools:text="Workout 1" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,17 +28,17 @@
         app:layout_constraintHorizontal_bias="0.354"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workoutTitle"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintVertical_bias="0.236" />
 
     <Button
         android:id="@+id/addWorkoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add workout"
-        app:layout_constraintBottom_toTopOf="@+id/wdRecyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toEndOf="@+id/workoutTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintVertical_bias="0.023" />
 </androidx.constraintlayout.widget.ConstraintLayout>

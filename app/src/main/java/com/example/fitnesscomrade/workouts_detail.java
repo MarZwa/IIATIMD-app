@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,10 +36,16 @@ public class workouts_detail extends Fragment {
     private RecyclerView.Adapter recyclerViewAdapter;
     private List<String> exercises = new ArrayList<String>();
     private JSONArray array;
+    private TextView title;
+    private Button button;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_workouts_detail, container, false);
+
+        button = v.findViewById(R.id.addWorkoutBtn);
+        title = v.findViewById(R.id.workoutTitle);
+        title.setText(PreferenceManager.getDefaultSharedPreferences(container.getContext()).getString("Title", "Workout"));
 
         String id = PreferenceManager.getDefaultSharedPreferences(container.getContext()).getString("ID", "defaultStringIfNothingFound");
         RequestQueue queue = Volley.newRequestQueue(container.getContext());
@@ -47,11 +55,10 @@ public class workouts_detail extends Fragment {
                 new Response.Listener<JSONArray>(){
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.d("DikkeTieten", response.toString());
 
                         for(int i=0;i<response.length();i++){
                             try {
-                                exercises.add(response.getJSONObject(i).getString("name") + ": 3 sets of " + response.getJSONObject(i).getString("reps") + " reps with " + response.getJSONObject(i).getString("rest_sets") + " seconds rest between sets");
+                                exercises.add(response.getJSONObject(i).getString("name") + ": 3 sets of " + response.getJSONObject(i).getString("reps") + " reps with 60 seconds rest between sets");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -77,6 +84,14 @@ public class workouts_detail extends Fragment {
                 }
             };
         queue.add(jsonArrayRequest);
+
+        button.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         recyclerView = v.findViewById(R.id.wdRecyclerView);
         recyclerView.setHasFixedSize(true);

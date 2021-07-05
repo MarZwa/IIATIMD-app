@@ -67,7 +67,7 @@ public class workouts_list extends Fragment implements workouts_listAdapter.OnLi
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("nietGewerkt", error.getMessage());
+                        Log.d("nietGewerkt", "error");
                     }
                 })
                 {
@@ -94,6 +94,7 @@ public class workouts_list extends Fragment implements workouts_listAdapter.OnLi
     public void onListClick(int position) {
 
         PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("ID", String.valueOf(position+1)).apply();
+        PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("Title", names.get(position)).apply();
 
         NavController navcontroller = Navigation.findNavController(getView());
         navcontroller.navigate(R.id.navigation_workouts_detail);

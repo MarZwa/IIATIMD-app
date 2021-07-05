@@ -41,7 +41,6 @@
         android:label="@string/title_addWorkout"
         tools:layout="@layout/fragment_add_workout" />
 
-<<<<<<< HEAD
     <fragment
         android:id="@+id/navigation_workout"
         android:name="com.example.fitnesscomrade.workout"
@@ -55,7 +54,3 @@
         tools:layout="@layout/fragment_timer" />
 
 </navigation>
-=======
-
-</navigation>
->>>>>>> development_jim

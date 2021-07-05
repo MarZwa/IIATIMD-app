@@ -62,7 +62,6 @@ public class MyWorkoutsAdapter extends RecyclerView.Adapter<RecyclerViewHolder> 
                 try {
                     List<Exercise> result = futureCall.get();
                     int exercisesLength = result.size();
-                    Log.d("lengte", String.valueOf(exercisesLength));
 
                     for(Exercise exercise : result) {
                         CurrentExercises currentExercise = new CurrentExercises();

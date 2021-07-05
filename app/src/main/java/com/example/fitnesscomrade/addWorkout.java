@@ -113,36 +113,5 @@ public class addWorkout extends Fragment {
         AppDatabase db = AppDatabase.getDbInstance(getActivity());
 
         new Thread(new SaveWorkoutTask(db, name, exName, reps, exName2, reps2, exName3, reps3)).start();
-
-//        long workoutId = db.workoutDao().getLastWorkoutId();
-//
-//        Workout workout = new Workout();
-//        workout.name = name;
-//
-//        Exercise exercise = new Exercise();
-//        exercise.workoutId = workoutId + 1;
-//        exercise.name = exName;
-//        exercise.reps = reps;
-//
-//        Exercise exercise2 = new Exercise();
-//        exercise2.workoutId = workoutId + 1;
-//        exercise2.name = exName2;
-//        exercise2.reps = reps2;
-//
-//        Exercise exercise3 = new Exercise();
-//        exercise3.workoutId = workoutId + 1;
-//        exercise3.name = exName3;
-//        exercise3.reps = reps3;
-//
-//        Log.d("workoutId", String.valueOf(workoutId));
-//
-//        Log.d("exercise", exercise.name);
-//        Log.d("exercise2", exercise2.name);
-//        Log.d("exercise3", exercise3.name);
-//
-//        db.workoutDao().insertWorkout(workout);
-//        db.exerciseDao().insertExercise(exercise);
-//        db.exerciseDao().insertExercise(exercise2);
-//        db.exerciseDao().insertExercise(exercise3);
     }
 }

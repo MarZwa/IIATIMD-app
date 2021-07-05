@@ -14,9 +14,6 @@ public interface ExerciseDao {
     @Query("SELECT * FROM Exercise")
     public List<Exercise> getExercises();
 
-//    @Query("SELECT * FROM Workout")
-//    List<Workout> getAllWorkouts();
-
     @Query("SELECT * FROM Exercise WHERE workoutId = :input")
     List<Exercise> getExerciseOnWorkoutId(int input);
 

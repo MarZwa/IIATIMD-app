@@ -117,7 +117,6 @@ public class workouts extends Fragment {
     public void onStart() {
         super.onStart();
         if(!(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("JWT", "defaultStringIfNothingFound") == "defaultStringIfNothingFound")){
-            Log.d("Dikke", PreferenceManager.getDefaultSharedPreferences(getContext()).getString("JWT", "defaultStringIfNothingFound"));
             NavController navcontroller = Navigation.findNavController(getView());
             navcontroller.navigate(R.id.navigation_workouts_list);
         }

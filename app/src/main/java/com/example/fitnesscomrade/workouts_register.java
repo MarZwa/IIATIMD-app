@@ -86,7 +86,7 @@ public class workouts_register extends Fragment {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("nietGewerkt", error.getMessage());
+                            Log.d("nietGewerkt", "error");
                         }
                     }){
                         @Override
